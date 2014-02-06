@@ -1,0 +1,8 @@
+2014-02-05
+----------------
+[done] DB::workouts - add column date
+[done] DB::user - add class attribute (admin/regular user)
+
+Form::workouts 	[done] - content -> text area
+								- user field (display only to admin)
+								[done] - list only own workouts if not admin

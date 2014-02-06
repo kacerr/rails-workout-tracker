@@ -4,7 +4,12 @@ class WorkoutsController < ApplicationController
   # GET /workouts
   # GET /workouts.json
   def index
-    @workouts = Workout.all
+    # if user is not admin then we want to get just hist workouts
+    if is_admin? 
+      @workouts = Workout.all
+    else
+      @workouts = current_user.workouts.all
+    end
   end
 
   # GET /workouts/1
@@ -69,6 +74,6 @@ class WorkoutsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def workout_params
-      params.require(:workout).permit(:title, :content, :user_id)
+      params.require(:workout).permit(:title, :content, :user_id, :date)
     end
 end

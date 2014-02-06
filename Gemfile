@@ -33,6 +33,8 @@ group :doc do
 end
 
 gem 'bootstrap-sass'
+gem 'bcrypt-ruby'
+
 group :development do
   gem 'rails_layout'
 end

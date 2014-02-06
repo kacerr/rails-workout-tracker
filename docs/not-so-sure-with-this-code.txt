@@ -1,0 +1,8 @@
+2014-02-05
+----------------
+- isAdmin? defined in SessionsHelper relies on existence of current_user variable in global namespace ?
+	i tried at least to namespace that function to be defined as SessionsHelper.is_admin? but then i don't know
+	how to access current_user variable
+
+- [question] - how to properly handle database intergrity issue in a view, let's say workout assigned to nonexistent user
+  					 - this is going to fail: @workout.user.email

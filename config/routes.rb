@@ -1,11 +1,21 @@
 WorkoutTracker::Application.routes.draw do
   resources :workouts
   resources :users
+  resources :sessions, only: [:new, :create, :destroy]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   root 'home#index'
+
+  get 'welcome' => 'home#index', as: :welcome
+
+  get 'signup' => 'users#new', as: :signup
+  get 'signin' => 'sessions#new', as: :signin
+  delete 'signout' => 'sessions#destroy', as: :signout
+
+
+
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 

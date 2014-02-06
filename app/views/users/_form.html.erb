@@ -1,4 +1,5 @@
-<%= form_for(@user) do |f| %>
+<%= form_for(@user, html:{class: "form-horizontal"}) do |f| %>
+  <%#= @user.inspect %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -11,23 +12,44 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
+  <div class="form-group">
+    <%= f.label :email, class: 'col-sm-1 control-label' %>
+      <div class="col-sm-2">
+        <%= f.text_field :email, class: 'form-control' %>
+      </div>
   </div>
-  <div class="field">
-    <%= f.label :firstName %><br>
-    <%= f.text_field :firstName %>
+  <div class="form-group">
+    <%= f.label :first_name, class: 'col-sm-1 control-label' %>
+    <div class="col-sm-2">
+      <%= f.text_field :first_name, class: 'form-control' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :lastName %><br>
-    <%= f.text_field :lastName %>
+  <div class="form-group">
+    <%= f.label :last_name, class: 'col-sm-1 control-label' %>
+    <div class="col-sm-2">
+      <%= f.text_field :last_name, class: 'form-control' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :password %><br>
-    <%= f.text_field :password %>
-  </div>
+  <% if @user.new_record? %>
+    <div class="form-group">
+      <%= f.label :password, class: 'col-sm-1 control-label' %>
+      <div class="col-sm-2">
+        <%= f.password_field :password, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :password_confirmation, "Confirmation", class: 'col-sm-1 control-label' %>
+      <div class="col-sm-2">
+        <%= f.password_field :password_confirmation, class: 'form-control' %>
+      </div>
+    </div>
+  <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>
+
+  <pre>
+    <%= @user.inspect %>
+  </pre>
+
 <% end %>

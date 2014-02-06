@@ -1,0 +1,5 @@
+2014-02-05
+-------------
+- frisbee game stats miniapp (players, teams, rosters, games, points - who plays, stats)
+- add measures
+- gamification of measures - assign weights to each "excercise" by coach / by community
