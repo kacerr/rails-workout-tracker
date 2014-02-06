@@ -16,9 +16,10 @@ module SessionsHelper
     @current_user ||= User.find_by(remember_token: remember_token)
   end    
 
-	def signed_in?
-		!current_user.nil?
-	end
+  def signed_in?
+    !current_user.nil?
+  end
+
 
   def sign_out
     current_user.update_attribute(:remember_token,
@@ -30,6 +31,11 @@ module SessionsHelper
   def is_admin?
     current_user && current_user.isAdmin?
   end
+
+  def own_only?
+    session[:own]
+  end
+
 
   def require_login
     redirect_to signin_path unless signed_in?

@@ -18,6 +18,9 @@
         <td><%= user.first_name %></td>
         <td><%= user.last_name %></td>
         <td>
+          <% if user.id != current_user.id %>
+            <%= link_to 'Friends', befriend_path(user.id) %>
+          <% end %>
           <%= link_to 'Show', user %>
           <%= link_to 'Edit', edit_user_path(user) %>
           <%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %>

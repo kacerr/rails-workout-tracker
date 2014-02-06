@@ -1,0 +1,32 @@
+<h1><%= @inbox_title %></h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <% if @inbox %>
+        <th>From</th>
+      <% else %>
+        <th>To</th>
+      <% end %>
+      <th>Content</th>
+      <th>Message type</th>
+      <th>Status</th>
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @messages.each do |message| %>
+      <tr>
+        <% if @inbox %>
+          <td><%= message.sender.email %></td>
+        <% else %>
+          <td><%= message.recipient.email %></td>
+        <% end %>
+        <td><%= message.inspect  %></td>
+        <td><%= message.message_type %></td>
+        <td><%= message.status %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

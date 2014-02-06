@@ -12,8 +12,14 @@ WorkoutTracker::Application.routes.draw do
 
   get 'signup' => 'users#new', as: :signup
   get 'signin' => 'sessions#new', as: :signin
+  get 'toggleown' => 'sessions#toggle_own', as: :toggleown
   delete 'signout' => 'sessions#destroy', as: :signout
 
+  # user to user interaction
+  get 'befriend/:id' => 'users#befriend', as: :befriend
+
+  # inbox
+  get 'inbox/:part' => 'messages#index', as: :inbox
 
 
   # You can have the root of your site routed with "root"

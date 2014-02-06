@@ -3,3 +3,7 @@
 - frisbee game stats miniapp (players, teams, rosters, games, points - who plays, stats)
 - add measures
 - gamification of measures - assign weights to each "excercise" by coach / by community
+- excercises library
+- workout content to excercise hyperlinking
+- friends
+- intra-site messaging

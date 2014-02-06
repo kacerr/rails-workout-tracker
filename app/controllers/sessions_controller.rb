@@ -20,4 +20,14 @@ class SessionsController < ApplicationController
 		sign_out
 		redirect_to root_path
   end
+
+  def toggle_own
+    if session[:own] 
+      session[:own]=false
+    else
+      session[:own]=true
+    end
+    redirect_to root_path
+  end
+
 end

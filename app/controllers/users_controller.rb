@@ -67,6 +67,22 @@ class UsersController < ApplicationController
     end
   end
 
+  # Sends a friend request to target user
+  def befriend
+    # send a friend request only if there is not one already pending
+    if Message.where(to_user_id: params[:id], from_user_id: current_user.id, message_type: "friend-request", status: "pending").length>0
+      # do nothing or display warning?
+      flash[:error] = 'There is already pending friend request from you to ' + User.find(params[:id]).email
+      # over here i would like to redirect to page where we came from
+      redirect_to :back
+    else
+      # create friend request
+      friend_request =  Message.new(from_user_id: current_user.id, to_user_id: params[:id], message_type: "friend-request", status: "pending")
+      friend_request.save
+      redirect_to :back, notice: "Friend request to #{User.find(params[:id]).email} was sent"
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user

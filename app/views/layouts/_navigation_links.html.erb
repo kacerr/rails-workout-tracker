@@ -1,8 +1,6 @@
 <%# add navigation links to this file %>
-<% if is_admin? %>
-	<li><a href="/users">Users</a></li>
-<% end %>
 <% if signed_in? %>
+	<li><a href="/users">Users</a></li>
 	<li><a href="/workouts">Workouts</a></li>
 <% end %>
 
@@ -18,8 +16,21 @@
 			<li>
 			<%= link_to "Sign out", signout_path, method: "delete" %>
 			</li>
+			<li class="divider"></li>
+			<li><a href="#"><%= current_user.email %></a></li>
+			<li><a href="#">role: <%= current_user.user_class %></a></li>
+			<li><a href="/inbox/in">in: <%= current_user.received_messages.count %></a></li>
+			<li><a href="/inbox/out">out: <%= current_user.sent_messages.count %></a></li>
 		</ul>
 	</li>
 	<% else %>
 	<li><%= link_to "Sign in", signin_path %></li>
+<% end %>
+
+<% if is_admin? %>
+	<%if own_only? %>
+		<li><%= link_to "toggle all", toggleown_path %></li>
+	<% else %>
+		<li><%= link_to "toggle own only", toggleown_path %></li>
+	<% end %>
 <% end %>

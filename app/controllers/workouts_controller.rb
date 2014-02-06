@@ -5,8 +5,12 @@ class WorkoutsController < ApplicationController
   # GET /workouts.json
   def index
     # if user is not admin then we want to get just hist workouts
-    if is_admin? 
-      @workouts = Workout.all
+    if is_admin?
+      if own_only?
+        @workouts = current_user.workouts.all
+      else
+        @workouts = Workout.all
+      end
     else
       @workouts = current_user.workouts.all
     end

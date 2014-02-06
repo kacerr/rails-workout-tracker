@@ -1,3 +1,8 @@
+2014-02-06
+----------------
+User::profile
+
+
 2014-02-05
 ----------------
 [done] DB::workouts - add column date
@@ -6,3 +11,4 @@
 Form::workouts 	[done] - content -> text area
 								- user field (display only to admin)
 								[done] - list only own workouts if not admin
+

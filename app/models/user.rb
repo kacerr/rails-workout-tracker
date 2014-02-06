@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   has_secure_password
   validates :password, length: { minimum: 6 }
   has_many :workouts
+  has_many :received_messages, class_name: "Message", foreign_key: "to_user_id"
+  has_many :sent_messages, class_name: "Message", foreign_key: "from_user_id"
   after_initialize :init
 
   def User.new_remember_token
