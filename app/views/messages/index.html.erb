@@ -11,6 +11,7 @@
       <th>Content</th>
       <th>Message type</th>
       <th>Status</th>
+      <th>Action</th>
 
     </tr>
   </thead>
@@ -26,6 +27,15 @@
         <td><%= message.inspect  %></td>
         <td><%= message.message_type %></td>
         <td><%= message.status %></td>
+        <td>
+          <% if message.message_type=="friend-request" && message.from_user_id==current_user.id%>
+            <%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %> 
+          <% end %>
+          <% if message.message_type=="friend-request" && message.from_user_id!=current_user.id%>
+            <%= link_to 'Reject', reject_friendship_path(message.from_user_id, message.to_user_id) %>
+            <%= link_to 'Accept', accept_friendship_path(message.from_user_id, message.to_user_id) %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

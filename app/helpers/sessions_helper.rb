@@ -36,6 +36,15 @@ module SessionsHelper
     session[:own]
   end
 
+  def redirect_back_or(default)
+    logger.debug(session[:return_to])
+    redirect_to(session[:return_to] || default)
+    session.delete(:return_to)
+  end
+
+  def store_location
+    session[:return_to] = request.url if request.get?
+  end
 
   def require_login
     redirect_to signin_path unless signed_in?

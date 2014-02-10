@@ -70,15 +70,29 @@ class UsersController < ApplicationController
   # Sends a friend request to target user
   def befriend
     # send a friend request only if there is not one already pending
-    if Message.where(to_user_id: params[:id], from_user_id: current_user.id, message_type: "friend-request", status: "pending").length>0
+    friendship = Friendship.where(to_user_id: params[:id], from_user_id: current_user.id).first
+    if friendship && friendship.type=="both-ways-unconfirmed"
       # do nothing or display warning?
       flash[:error] = 'There is already pending friend request from you to ' + User.find(params[:id]).email
       # over here i would like to redirect to page where we came from
       redirect_to :back
     else
-      # create friend request
-      friend_request =  Message.new(from_user_id: current_user.id, to_user_id: params[:id], message_type: "friend-request", status: "pending")
-      friend_request.save
+      # first get information about current friendship status
+      friendship = Friendship.where(to_user_id: params[:id], from_user_id: current_user.id).first
+      if friendship && friendship.type=="both-ways-confirmed"
+        # friendship is already established just give user notice about that
+        redirect_to :back, warning: "Friendship with #{User.find(params[:id]).email} is already established"
+      else
+        # create friend request
+        friend_request =  Message.new(from_user_id: current_user.id, to_user_id: params[:id], message_type: "friend-request", status: "pending")
+        friend_request.save
+        if friendship
+          friendship.type = "both-ways-unconfirmed"
+        else
+          friendship = Friendship.new(from_user_id: current_user.id, to_user_id: params[:id], type: "both-ways-unconfirmed")
+        end
+        friendship.save
+      end
       redirect_to :back, notice: "Friend request to #{User.find(params[:id]).email} was sent"
     end
   end

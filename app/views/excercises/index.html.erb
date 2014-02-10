@@ -1,0 +1,33 @@
+<h1>Listing excercises</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Slug</th>
+      <th>Description</th>
+      <th>Url</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @excercises.each do |excercise| %>
+      <tr>
+        <td><%= excercise.name %></td>
+        <td><%= excercise.slug %></td>
+        <td><%= excercise.description %></td>
+        <td><%= excercise.url %></td>
+        <td>
+          <%= link_to 'Show', excercise %>
+          <%= link_to 'Edit', edit_excercise_path(excercise) %>
+          <%= link_to 'Destroy', excercise, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Excercise', new_excercise_path %>

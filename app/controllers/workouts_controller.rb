@@ -1,5 +1,5 @@
 class WorkoutsController < ApplicationController
-  before_action :set_workout, only: [:show, :edit, :update, :destroy]
+  before_action :set_workout, only: [:show, :show_details, :edit, :update, :destroy]
 
   # GET /workouts
   # GET /workouts.json
@@ -19,11 +19,19 @@ class WorkoutsController < ApplicationController
   # GET /workouts/1
   # GET /workouts/1.json
   def show
+    @allowModify = true
+  end
+
+  # GET /workout-details/1
+  def show_details
+    @allowModify = false
+    render :show
   end
 
   # GET /workouts/new
   def new
     @workout = Workout.new
+    @workout.date = Time.now
   end
 
   # GET /workouts/1/edit

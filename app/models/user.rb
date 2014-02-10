@@ -25,6 +25,14 @@ class User < ActiveRecord::Base
     self.user_class=="admin"
   end
 
+
+  def generate_token(column)
+    begin
+      self[column] = SecureRandom.urlsafe_base64
+    end while User.exists?(column => self[column])
+  end
+
+
   private
 
     def create_remember_token

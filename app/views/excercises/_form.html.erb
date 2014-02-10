@@ -1,0 +1,41 @@
+<%= form_for(@excercise, html:{class: "form-horizontal"}) do |f| %>
+  <% if @excercise.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@excercise.errors.count, "error") %> prohibited this excercise from being saved:</h2>
+
+      <ul>
+      <% @excercise.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :name, class: 'col-sm-1 control-label' %>
+    <div class="col-sm-4">
+      <%= f.text_field :name, class: 'form-control'%>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :slug, class: 'col-sm-1 control-label' %>
+    <div class="col-sm-4">
+      <%= f.text_field :slug, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :description, class: 'col-sm-1 control-label' %>
+    <div class="col-sm-8">
+      <%= f.text_area :description, size: "80x6", class: 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :url, class: 'col-sm-1 control-label' %>
+    <div class="col-sm-4">
+      <%= f.text_field :url, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

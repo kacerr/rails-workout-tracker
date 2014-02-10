@@ -1,7 +1,10 @@
 WorkoutTracker::Application.routes.draw do
+  resources :measurements
+  resources :excercises
   resources :workouts
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
+  resources :messages
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -12,14 +15,24 @@ WorkoutTracker::Application.routes.draw do
 
   get 'signup' => 'users#new', as: :signup
   get 'signin' => 'sessions#new', as: :signin
+  get 'reset-password' => 'sessions#reset_password', as: :reset_password
+  post 'reset-password' => 'sessions#process_reset_password'
+  get 'reset-password-finish/:token' => 'sessions#reset_password_finish', as: :reset_password_finish
+  post 'reset-password-finish/:token' => 'sessions#reset_password_finish_save'
+
   get 'toggleown' => 'sessions#toggle_own', as: :toggleown
   delete 'signout' => 'sessions#destroy', as: :signout
 
   # user to user interaction
   get 'befriend/:id' => 'users#befriend', as: :befriend
+  get 'rejectfriendship/:from_id/:to_id' => 'friendships#reject', as: :reject_friendship
+  get 'acceptfriendship/:from_id/:to_id' => 'friendships#accept', as: :accept_friendship
 
   # inbox
   get 'inbox/:part' => 'messages#index', as: :inbox
+
+  # workouts
+  get 'workout-details/:id' => 'workouts#show_details', as: :workout_details
 
 
   # You can have the root of your site routed with "root"
