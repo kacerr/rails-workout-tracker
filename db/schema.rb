@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140210022815) do
+ActiveRecord::Schema.define(version: 20140210170544) do
 
   create_table "excercises", force: true do |t|
     t.string   "name"
@@ -59,6 +59,8 @@ ActiveRecord::Schema.define(version: 20140210022815) do
     t.string   "user_class"
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
+    t.string   "display_name"
+    t.string   "alternative_email"
   end
 
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree

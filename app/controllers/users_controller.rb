@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
+  skip_before_action :require_login, only: [:new, :create]
+  
   # GET /users
   # GET /users.json
   def index
@@ -46,8 +47,21 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    isUpdate = params[:action_details]=="update"
+    if isUpdate
+      #out = CGI.escapeHTML(@user.inspect)
+      params[:user].each do |key, value|
+        @user[key] = value
+      end
+      #out += CGI.escapeHTML(@user.inspect)
+      #render :text  => out
+      #return false
+      updated = @user.save(:validate => false)
+    else
+      updated = @user.update(user_params)
+    end
     respond_to do |format|
-      if @user.update(user_params)
+      if updated
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
@@ -105,6 +119,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :first_name, :last_name, :password, :password_confirmation)
+      params.require(:user).permit(:email, :first_name, :last_name, :password, :password_confirmation, :display_name, :alternative_email)
     end
 end
