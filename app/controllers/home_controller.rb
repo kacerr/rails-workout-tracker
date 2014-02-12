@@ -8,6 +8,6 @@ class HomeController < ApplicationController
 			"user_id in 
 				(select user_id from memberships where group_id in 
 						(select group_id from memberships where user_id=#{current_user.id})
-				)")
+				)").order('date DESC') if (current_user) 
 	end
 end

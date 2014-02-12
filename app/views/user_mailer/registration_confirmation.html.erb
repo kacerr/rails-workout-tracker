@@ -1,0 +1,14 @@
+<html>
+	<body>
+			<p><%= @user.first_name %> <%= @user.last_name %>,</p>
+
+			<p>Thank you for registering into the Workout.tracker.2014 app,<br>
+			Good things are coming,</p>
+
+			<p>Get ready ....</p>
+
+			<p>Check on us on <a href="<%= welcome_url%>"><%= ActionMailer::Base.default_url_options[:host] %></a></p>
+
+			<p>WT2014 Team		</p>
+	</body>
+</html>
