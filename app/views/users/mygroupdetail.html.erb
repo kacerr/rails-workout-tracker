@@ -1,0 +1,84 @@
+<h1>My group details</h1>
+
+<div class="col-sm-4">
+  <h2>Edit group</h2>
+  <%= form_tag(mygroups_path, class: "form-horizontal") do |f| %>
+    <% if @group.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@group.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+        <ul>
+        <% @group.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="form-group">
+    </div>
+    <div class="form-group">
+      <%= label_tag "name", nil, class: 'col-sm-3 control-label' %>
+      <div class="col-sm-9">
+        <%= text_field_tag "name", @group.name, class: 'form-control'%>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= label_tag "description", nil, class: 'col-sm-3 control-label' %>
+      <div class="col-sm-9">
+        <%= text_area_tag "description", @group.description, rows: 5, class: 'form-control'%>
+      </div>
+    </div>
+    <div class="form-group col-sm-12">
+      <%= submit_tag "Create group", class: "btn btn-large btn-primary pull-right" %>
+    </div>
+  <% end %>
+</div>
+<div class="col-sm-4">
+  <h2>Current members</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Display name</th>
+        <th>Email</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @members.each do |user| %>
+        <tr>
+          <td><%= user.display_name %></td>
+          <td><%= user.email %></td>
+          <td>
+            <%= link_to 'Remove', "/user/#{user.id}/remove-from-group/#{@group.id}" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
+<div class="col-sm-4">
+  <h2>Add members</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Display name</th>
+        <th>Email</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @nonmembers.each do |user| %>
+        <tr>
+          <td><%= user.display_name %></td>
+          <td><%= user.email %></td>
+          <td>
+            <%= link_to 'Add', "/user/#{user.id}/add-to-group/#{@group.id}" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

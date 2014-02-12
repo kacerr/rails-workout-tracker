@@ -111,6 +111,67 @@ class UsersController < ApplicationController
     end
   end
 
+  def groups_i_am_in
+    @groups = Group.joins(memberships: :user).where('memberships.user_id' => current_user.id)
+    @group = Group.new
+    @listing_only = true
+    render :mygroups
+  end
+
+  def remove_me_from_group
+    membership = Membership.where(user_id: current_user.id, group_id: params[:id]).first
+    membership.destroy if membership
+    redirect_back_or ""
+  end
+
+  def mygroups
+    @groups = current_user.groups
+    @group = Group.new
+    render :mygroups
+  end
+
+  def mygroups_save
+    @group = Group.new(name: params[:name], description: params[:description], owner_id: current_user.id)
+    saved = @group.save
+    @groups = current_user.groups
+
+    respond_to do |format|
+      if saved
+        format.html { 
+          flash[:notice] = 'New Group was successfully created.'
+          redirect_back_or mygroups_path
+        }
+        format.json { render action: 'show', status: :created, location: @group }
+      else
+        format.html { render action: 'mygroups' }
+        format.json { render json: @group.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def mygroup_edit
+    @group = Group.find(params[:id])
+    @members = @group.users.all
+    @nonmembers = User.all
+    #render :text => CGI.escapeHTML(@members.inspect)
+    #render :text => params
+    render :mygroupdetail
+  end
+
+  def remove_user_from_group
+    membership = Membership.where(user_id: params[:id], group_id: params[:group_id]).first
+    membership.destroy if membership
+    #render :text => params
+    #redirect_to "/user/my-group-edit/#{params[:group_id]}"
+    redirect_back_or "/user/my-group-edit/#{params[:group_id]}"
+  end
+
+  def add_user_to_group
+    membership = Membership.new(user_id: params[:id], group_id: params[:group_id])
+    membership.save
+    redirect_back_or "/user/my-group-edit/#{params[:group_id]}"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user

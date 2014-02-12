@@ -3,6 +3,7 @@ WorkoutTracker::Application.routes.draw do
   resources :excercises
   resources :workouts
   resources :users
+  resources :groups
   resources :sessions, only: [:new, :create, :destroy]
   resources :messages
 
@@ -27,6 +28,19 @@ WorkoutTracker::Application.routes.draw do
   get 'befriend/:id' => 'users#befriend', as: :befriend
   get 'rejectfriendship/:from_id/:to_id' => 'friendships#reject', as: :reject_friendship
   get 'acceptfriendship/:from_id/:to_id' => 'friendships#accept', as: :accept_friendship
+
+  # groups and user grouping
+  get 'user/my-groups' => 'users#mygroups', as: :mygroups
+  post 'user/my-groups' => 'users#mygroups_save'
+  ## group details & members
+  get 'user/my-group-edit/:id' => 'users#mygroup_edit', as: :mygroup_edit
+  get 'user/groups-i-am-in' => 'users#groups_i_am_in', as: :groups_i_am_in
+  ## group add / remove members
+  get 'user/:id/remove-from-group/:group_id' => 'users#remove_user_from_group'
+  get 'user/:id/add-to-group/:group_id' => 'users#add_user_to_group'
+  get 'user/remove-me-from-group/:id' => 'users#remove_me_from_group', as: :remove_me_from_group
+
+
 
   # inbox
   get 'inbox/:part' => 'messages#index', as: :inbox

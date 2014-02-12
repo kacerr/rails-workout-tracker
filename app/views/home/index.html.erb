@@ -12,27 +12,60 @@
 		</p>
   <% end %>
 
-  <h1>Workouts stream</h1>
+  <% if signed_in? %>
+    <div class="col-sm-6">
+      <h1>My Groups Workouts stream</h1>
 
-  <table class="table table-striped">
-    <tbody>
-      <% @workouts.each do |workout| %>
-        <tr>
-          <td>
-            <span style="color: #AA55CC">
-              <% if workout.user.display_name && workout.user.display_name!='' %>
-                <%= workout.user.display_name %>
-              <% else %> 
-                <%= workout.user.email %>
-              <% end %>
-            </span>
-            logged: 
-            <%= link_to workout.title, workout_details_path(workout.id) %>
-            at: 
-            <%= workout.date %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+      <table class="table table-striped">
+        <tbody>
+          <% if @groupworkouts %>
+            <% @groupworkouts.each do |workout| %>
+              <tr>
+                <td>
+                  <span style="color: #AA55CC">
+                    <% if workout.user.display_name && workout.user.display_name!='' %>
+                      <%= workout.user.display_name %>
+                    <% else %> 
+                      <%= workout.user.email %>
+                    <% end %>
+                  </span>
+                  logged: 
+                  <%= link_to workout.title, workout_details_path(workout.id) %>
+                  at: 
+                  <%= workout.date %>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+  <% end %>
+
+  <div class="col-sm-6">
+    <h1>All Workouts stream</h1>
+
+    <table class="table table-striped">
+      <tbody>
+        <% @workouts.each do |workout| %>
+          <tr>
+            <td>
+              <span style="color: #AA55CC">
+                <% if workout.user.display_name && workout.user.display_name!='' %>
+                  <%= workout.user.display_name %>
+                <% else %> 
+                  <%= workout.user.email %>
+                <% end %>
+              </span>
+              logged: 
+              <%= link_to workout.title, workout_details_path(workout.id) %>
+              at: 
+              <%= workout.date %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>

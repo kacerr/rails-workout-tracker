@@ -12,7 +12,9 @@ class User < ActiveRecord::Base
   has_many :workouts
   has_many :received_messages, class_name: "Message", foreign_key: "to_user_id"
   has_many :sent_messages, class_name: "Message", foreign_key: "from_user_id"
-  after_initialize :init
+  has_many :groups, foreign_key: "owner_id"
+  has_many :memberships, :dependent => :destroy
+  has_many :groupparticipations, :through => :memberships
 
   def User.new_remember_token
     SecureRandom.urlsafe_base64
