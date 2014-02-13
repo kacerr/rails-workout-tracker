@@ -1,4 +1,6 @@
 WorkoutTracker::Application.routes.draw do
+  resources :profiles
+
   resources :measurements
   resources :excercises
   resources :workouts
@@ -23,6 +25,9 @@ WorkoutTracker::Application.routes.draw do
 
   get 'toggleown' => 'sessions#toggle_own', as: :toggleown
   delete 'signout' => 'sessions#destroy', as: :signout
+
+  # user profile
+  get 'user/:id/profile' => 'users#show_profile', as: :view_profile
 
   # user to user interaction
   get 'befriend/:id' => 'users#befriend', as: :befriend

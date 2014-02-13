@@ -3,6 +3,8 @@ require 'test_helper'
 class UsersControllerTest < ActionController::TestCase
   setup do
     @user = users(:one)
+    # we need to have logged in user
+    sign_in(User.first)
   end
 
   test "should get index" do
@@ -18,10 +20,13 @@ class UsersControllerTest < ActionController::TestCase
 
   test "should create user" do
     assert_difference('User.count') do
-      post :create, user: { email: @user.email, firstName: @user.firstName, lastName: @user.lastName, password: @user.password }
+      @user.password = "at least six chars"
+      @user.email = @user.email + '_random_data'
+      post :create, user: { email: @user.email, first_name: @user.first_name, last_name: @user.last_name, password: @user.password, password_confirmation: @user.password }
     end
 
-    assert_redirected_to user_path(assigns(:user))
+    assert_redirected_to welcome_path
+    #assert_redirected_to user_path(assigns(:user))
   end
 
   test "should show user" do
@@ -35,7 +40,9 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should update user" do
-    patch :update, id: @user, user: { email: @user.email, firstName: @user.firstName, lastName: @user.lastName, password: @user.password }
+    @user.password = "at least six chars"
+    @user.email = @user.email + '_random_data'
+    patch :update, id: @user, user: { email: @user.email, first_name: @user.first_name, last_name: @user.last_name, password: @user.password, password_confirmation: @user.password }
     assert_redirected_to user_path(assigns(:user))
   end
 

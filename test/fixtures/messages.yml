@@ -2,12 +2,14 @@
 
 one:
   text: MyString
-  user_id: 1
+  from_user_id: 1
+  to_user_id: 2
   message_type: MyString
   status: MyString
 
 two:
   text: MyString
-  user_id: 1
+  from_user_id: 1
+  to_user_id: 2
   message_type: MyString
   status: MyString

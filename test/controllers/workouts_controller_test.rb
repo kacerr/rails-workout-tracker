@@ -3,6 +3,8 @@ require 'test_helper'
 class WorkoutsControllerTest < ActionController::TestCase
   setup do
     @workout = workouts(:one)
+    # we need to have logged in user
+    sign_in(User.first)
   end
 
   test "should get index" do

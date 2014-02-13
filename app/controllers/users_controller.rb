@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :show_profile]
   skip_before_action :require_login, only: [:new, :create]
   
   # GET /users
@@ -20,6 +20,12 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    if @user.profile
+      @profile = @user.profile
+    else
+      @profile = Profile.new(user_id: @user.id)
+      @profile.save
+   end
   end
 
   # POST /users
@@ -109,6 +115,10 @@ class UsersController < ApplicationController
       end
       redirect_to :back, notice: "Friend request to #{User.find(params[:id]).email} was sent"
     end
+  end
+
+  def show_profile
+    render :profile
   end
 
   def groups_i_am_in

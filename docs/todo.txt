@@ -1,6 +1,13 @@
+2014-02-12
+----------------
+- extended user profile (birthdate, country, city, bio, height, weight)
+- activity log
+- user profile view
+- user profile edit
+
 2014-02-10
 ----------------
-- add display_name, alternative_email (for special user's with login not being email) 
+- [done] add display_name, alternative_email (for special user's with login not being email) 
 
 2014-02-09
 ----------------
@@ -9,7 +16,9 @@
 2014-02-08
 ----------------
 Groups
-- resource
+- [done] resource
+- [done] owner can add users to a group
+- [done] user can remove himself from a group
 - invitation / acceptance / straight adding to the group
 - group report
 

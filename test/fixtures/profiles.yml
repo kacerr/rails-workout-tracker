@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  birth_date: 2014-02-12 18:18:53
+  country: MyString
+  city: MyString
+  bio: MyText
+  height: 1.5
+  weight: 1.5
+
+two:
+  birth_date: 2014-02-12 18:18:53
+  country: MyString
+  city: MyString
+  bio: MyText
+  height: 1.5
+  weight: 1.5

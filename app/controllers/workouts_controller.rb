@@ -7,12 +7,12 @@ class WorkoutsController < ApplicationController
     # if user is not admin then we want to get just hist workouts
     if is_admin?
       if own_only?
-        @workouts = current_user.workouts.all
+        @workouts = current_user.workouts.load
       else
         @workouts = Workout.all
       end
     else
-      @workouts = current_user.workouts.all
+      @workouts = current_user.workouts.load
     end
   end
 

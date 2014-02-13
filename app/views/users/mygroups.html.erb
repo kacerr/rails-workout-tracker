@@ -10,6 +10,7 @@
     <tr>
       <th>Name</th>
       <th>Description</th>
+      <th>Members</th>
       <th>Action</th>
 
     </tr>
@@ -21,48 +22,56 @@
         <td><%= group.name %></td>
         <td><%= group.description %></td>
         <td>
+          <% group.users.each do |user| %>
+            <%= link_to user.email, view_profile_path(user.id) %>,
+          <% end %>
+        </td>
+
+        <td>
           <% if @listing_only %>
             <%= link_to 'Remove me', remove_me_from_group_path(id: group.id) %>
           <% else %>
-           <%= link_to 'Edit & members', mygroup_edit_path(id: group.id) %>
-           <%= link_to 'Delete', group, method: :delete, data: { confirm: 'Are you sure?' } %>
+            <%= link_to 'Edit & members', mygroup_edit_path(id: group.id) %>
+            <%= link_to 'Delete', group, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% end %>
         </td>
-        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br><br>
-<hr style="border-top: 1px solid lightgrey">
-<h2>Add new group</h2>
-<%= form_tag(mygroups_path, class: "form-horizontal") do |f| %>
-  <% if @group.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@group.errors.count, "error") %> prohibited this user from being saved:</h2>
+<% if !@listing_only %>
+  <br><br>
+  <hr style="border-top: 1px solid lightgrey">
+  <h2>Add new group</h2>
+  <%= form_tag(mygroups_path, class: "form-horizontal") do |f| %>
+    <% if @group.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@group.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-      <ul>
-      <% @group.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+        <ul>
+        <% @group.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="form-group">
+    </div>
+    <div class="form-group">
+      <%= label_tag "name", nil, class: 'col-sm-1 control-label' %>
+      <div class="col-sm-4">
+        <%= text_field_tag "name", @group.name, class: 'form-control'%>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= label_tag "description", nil, class: 'col-sm-1 control-label' %>
+      <div class="col-sm-4">
+        <%= text_area_tag "description", @group.description, rows: 5, class: 'form-control'%>
+      </div>
+    </div>
+    <div class="form-group col-sm-5">
+      <%= submit_tag "Create group", class: "btn btn-large btn-primary pull-right" %>
     </div>
   <% end %>
-  <div class="form-group">
-  </div>
-  <div class="form-group">
-    <%= label_tag "name", nil, class: 'col-sm-1 control-label' %>
-    <div class="col-sm-4">
-      <%= text_field_tag "name", @group.name, class: 'form-control'%>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= label_tag "description", nil, class: 'col-sm-1 control-label' %>
-    <div class="col-sm-4">
-      <%= text_area_tag "description", @group.description, rows: 5, class: 'form-control'%>
-    </div>
-  </div>
-  <div class="form-group col-sm-5">
-    <%= submit_tag "Create group", class: "btn btn-large btn-primary pull-right" %>
-  </div>
 <% end %>
