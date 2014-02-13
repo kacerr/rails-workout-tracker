@@ -1,4 +1,6 @@
 WorkoutTracker::Application.routes.draw do
+  resources :articles
+
   resources :profiles
 
   resources :measurements
@@ -45,7 +47,8 @@ WorkoutTracker::Application.routes.draw do
   get 'user/:id/add-to-group/:group_id' => 'users#add_user_to_group'
   get 'user/remove-me-from-group/:id' => 'users#remove_me_from_group', as: :remove_me_from_group
 
-
+  # join workout
+  get 'workout/:id/join' => 'workouts#join', as: :join_workout
 
   # inbox
   get 'inbox/:part' => 'messages#index', as: :inbox

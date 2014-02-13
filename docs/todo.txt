@@ -1,9 +1,10 @@
 2014-02-12
 ----------------
-- extended user profile (birthdate, country, city, bio, height, weight)
+- [done] extended user profile (birthdate, country, city, bio, height, weight)
 - activity log
-- user profile view
-- user profile edit
+- [done] user profile view
+- [done] user profile edit
+- join workout (i was also there)
 
 2014-02-10
 ----------------

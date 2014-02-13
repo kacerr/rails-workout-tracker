@@ -1,5 +1,5 @@
 class WorkoutsController < ApplicationController
-  before_action :set_workout, only: [:show, :show_details, :edit, :update, :destroy]
+  before_action :set_workout, only: [:show, :show_details, :edit, :update, :destroy, :join]
 
   # GET /workouts
   # GET /workouts.json
@@ -75,6 +75,22 @@ class WorkoutsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to workouts_url }
       format.json { head :no_content }
+    end
+  end
+
+  def join
+    # check if join already exists
+    workout_join = @workout.workout_joins.where('workout_id' => @workout.id, 'user_id' => current_user.id).first
+    if workout_join
+      # already joined
+      flash[:warning] = "You have already joined this workout"
+      redirect_back_or welcome_path
+    else
+      # we have to create this join
+      workout_join = WorkoutJoin.new(workout_id: @workout.id, user_id: current_user.id)
+      workout_join.save
+      flash[:notice] = "Successfully joined workout #{@workout.title}"
+      redirect_back_or welcome_path
     end
   end
 
