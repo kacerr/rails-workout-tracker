@@ -7,12 +7,13 @@
 
 <p>
   <strong>Description:</strong>
-  <%= @excercise.description %>
+  <%=  raw @excercise.description.gsub(/\n/, '<br>') %>
 </p>
 
 <p>
   <strong>Url:</strong>
-  <%= @excercise.url %>
+  <br>
+  <iframe width="425" height="349" src="<%= @excercise.url %>" frameborder="0" allowfullscreen></iframe>
 </p>
 
 <%= link_to 'Edit', edit_excercise_path(@excercise) %> |

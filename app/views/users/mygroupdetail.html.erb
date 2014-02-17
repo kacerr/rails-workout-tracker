@@ -28,8 +28,19 @@
         <%= text_area_tag "description", @group.description, rows: 5, class: 'form-control'%>
       </div>
     </div>
+    <div class="form-group">
+      <%= label_tag "public", nil, class: 'col-sm-3 control-label' %>
+      <div class="col-sm-9">
+        <%= check_box_tag "public", 1, @group.public, class: 'form-control'%>
+      </div>
+    </div>
     <div class="form-group col-sm-12">
-      <%= submit_tag "Create group", class: "btn btn-large btn-primary pull-right" %>
+      <% if @group.new_record? %>
+        <%= submit_tag "Create group", value: "create", class: "btn btn-large btn-primary pull-right" %>
+      <% else %>
+        <%= submit_tag "Update group", value: "update", class: "btn btn-large btn-primary pull-right" %>
+      <% end %>
+      <%= hidden_field_tag "id", @group.id%>
     </div>
   <% end %>
 </div>

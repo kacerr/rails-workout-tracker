@@ -46,6 +46,9 @@ WorkoutTracker::Application.routes.draw do
   get 'user/:id/remove-from-group/:group_id' => 'users#remove_user_from_group'
   get 'user/:id/add-to-group/:group_id' => 'users#add_user_to_group'
   get 'user/remove-me-from-group/:id' => 'users#remove_me_from_group', as: :remove_me_from_group
+  ## visibility of events from this group in stream
+  get 'user/hide-group-from-stream/:id' => 'users#hide_group_from_stream', as: :hide_group_from_stream
+  get 'user/show-group-in-stream/:id' => 'users#show_group_in_stream', as: :show_group_in_stream
 
   # join workout
   get 'workout/:id/join' => 'workouts#join', as: :join_workout

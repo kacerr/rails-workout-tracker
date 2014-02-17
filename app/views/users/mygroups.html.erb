@@ -19,9 +19,9 @@
   <tbody>
     <% @groups.each do |group| %>
       <tr>
-        <td><%= group.name %></td>
-        <td><%= group.description %></td>
-        <td>
+        <td class="col-sm-1"><%= group.name %></td>
+        <td class="col-sm-1"><%= group.description %></td>
+        <td class="col-sm-8">
           <% group.users.each do |user| %>
             <%= link_to user.email, view_profile_path(user.id) %>,
           <% end %>
@@ -30,6 +30,11 @@
         <td>
           <% if @listing_only %>
             <%= link_to 'Remove me', remove_me_from_group_path(id: group.id) %>
+            <% if @memberships_ids.include? group.id %>
+              <%= link_to 'Hide from stream', hide_group_from_stream_path(id: group.id) %>
+            <% else %>
+              <%= link_to 'Show in stream', show_group_in_stream_path(id: group.id) %>
+            <% end %>
           <% else %>
             <%= link_to 'Edit & members', mygroup_edit_path(id: group.id) %>
             <%= link_to 'Delete', group, method: :delete, data: { confirm: 'Are you sure?' } %>
@@ -68,6 +73,12 @@
       <%= label_tag "description", nil, class: 'col-sm-1 control-label' %>
       <div class="col-sm-4">
         <%= text_area_tag "description", @group.description, rows: 5, class: 'form-control'%>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= label_tag "public", nil, class: 'col-sm-1 control-label' %>
+      <div class="col-sm-4">
+        <%= check_box_tag "public", 1, @group.public, class: 'form-control'%>
       </div>
     </div>
     <div class="form-group col-sm-5">

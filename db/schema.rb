@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140213025329) do
+ActiveRecord::Schema.define(version: 20140217012051) do
 
   create_table "articles", force: true do |t|
     t.integer  "user_id"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20140213025329) do
 
   create_table "excercises", force: true do |t|
     t.string   "name"
-    t.string   "description"
+    t.text     "description"
     t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20140213025329) do
     t.integer  "owner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "public"
   end
 
   create_table "measurements", force: true do |t|
@@ -60,6 +61,7 @@ ActiveRecord::Schema.define(version: 20140213025329) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "show_in_groups_stream"
   end
 
   create_table "messages", force: true do |t|

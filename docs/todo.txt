@@ -1,10 +1,23 @@
+2014-02-16
+- group membership: allow users to enable / disable showing of group in "groups" stream
+- [done 2014-02-16 ] groups ::  create public - searchable groups where everybody can become member / but can be later declined by admin
+- groups :: add group listing (public) with option to be joined
+
+2014-02-13
+----------------
+- challenges :: challenge (title, content)
+								challenge_acceptations (challenge_id, user_id)
+								challenge_result (challenge_id, user_id, value)
+
+- workouts streams - display in smaller part of the page, include scrolling? iframe? something else?
+
 2014-02-12
 ----------------
 - [done] extended user profile (birthdate, country, city, bio, height, weight)
 - activity log
 - [done] user profile view
 - [done] user profile edit
-- join workout (i was also there)
+- [done] join workout (i was also there)
 
 2014-02-10
 ----------------

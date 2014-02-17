@@ -123,6 +123,7 @@ class UsersController < ApplicationController
 
   def groups_i_am_in
     @groups = Group.joins(memberships: :user).where('memberships.user_id' => current_user.id)
+    @memberships_ids = current_user.memberships.where(:show_in_groups_stream => 1).pluck(:group_id)
     @group = Group.new
     @listing_only = true
     render :mygroups
@@ -134,6 +135,21 @@ class UsersController < ApplicationController
     redirect_back_or ""
   end
 
+  def hide_group_from_stream
+    membership = Membership.where(user_id: current_user.id, group_id: params[:id]).first
+    membership.show_in_groups_stream = 0
+    membership.save
+    redirect_back_or ""
+  end
+
+  def show_group_in_stream
+    membership = Membership.where(user_id: current_user.id, group_id: params[:id]).first
+    membership.show_in_groups_stream = 1
+    membership.save
+    redirect_back_or ""
+  end
+
+
   def mygroups
     @groups = current_user.groups
     @group = Group.new
@@ -141,14 +157,30 @@ class UsersController < ApplicationController
   end
 
   def mygroups_save
-    @group = Group.new(name: params[:name], description: params[:description], owner_id: current_user.id)
+    is_update = false
+    if params[:commit]=="Create group"
+      @group = Group.new(name: params[:name], description: params[:description], public: params[:public], owner_id: current_user.id)
+    else
+      @group = Group.find(params[:id])
+      @group[:name]=params[:name]
+      @group[:description]=params[:description]
+      @group[:public]=params[:public]
+      is_update = true
+    end
     saved = @group.save
     @groups = current_user.groups
+
+    #render :text => params.inspect
+    #return
 
     respond_to do |format|
       if saved
         format.html { 
-          flash[:notice] = 'New Group was successfully created.'
+          if is_update 
+            flash[:notice] = 'Group was successfully updated.'
+          else
+            flash[:notice] = 'New Group was successfully created.'
+          end if
           redirect_back_or mygroups_path
         }
         format.json { render action: 'show', status: :created, location: @group }

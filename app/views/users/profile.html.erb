@@ -30,7 +30,7 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-3 text-right"><strong>bio:</strong></div>
-			<div class="col-sm-6"><%= raw @user.profile.bio.gsub(/\n/, '<br>') %></div>
+			<div class="col-sm-6"><%= raw @user.profile.bio.try(:gsub, /\n/, '<br>') %></div>
 		</div>
 		<div class="row">
 			<div class="col-sm-3 text-right"><strong>weight:</strong></div>
