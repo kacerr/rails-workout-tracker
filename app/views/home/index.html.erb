@@ -1,10 +1,14 @@
 <div class="center hero-unit">
+  <!--
   <h1>Welcome to the Workout tracker</h1>
+  -->
   <% if signed_in? %>
+    <!--
   	<p>You are signed in as: <%= current_user.email %>, class: <%= current_user.user_class%></p>
   	<p>
   		<%= link_to "Log out!", signout_path, method: "delete", class: "btn btn-large btn-success" %>
   	</p>
+    -->
   <% else %>
   	<p>
 		  <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
@@ -14,63 +18,83 @@
 
   <% if signed_in? %>
     <div class="col-sm-6">
+      <h1>NEWS !!!</h1>
+      <hr style="border-top: 1px solid black; margin:0px 0 10px 0">
+      <% @news.each do |news| %>
+        <div>
+          <div class="news-title">
+            <h3 style="display: inline"><%= news.title %></h3>
+            written by: 
+              <%= link_to getNameOrEmail(news.user), view_profile_path(news.user.id), :style => 'color: #AA55CC' %>
+            </div>
+          <div class="news-content" style="margin-top: 10px"><%= raw news.content.gsub(/\n/, '<br>') %></div>
+        </div>
+      <% end %>
+
+    </div>
+
+    <div class="col-sm-6">
       <h1>My Groups Workouts stream</h1>
 
-      <table class="table table-striped">
-        <tbody>
-          <% if @groupworkouts %>
-            <% @groupworkouts.each do |workout| %>
+      <div style="height: 200px; overflow-y: scroll; border: 1px dotted">
+        <table class="table table-striped">
+          <tbody>
+            <% if @groupworkouts %>
+              <% @groupworkouts.each do |workout| %>
+                <tr>
+                  <td>
+                    <%= link_to workout.title, workout_details_path(workout.id) %>
+                    by
+                    <span style="color: #AA55CC">
+                      <%= link_to getNameOrEmail(workout.user), view_profile_path(workout.user.id), :style => 'color: #AA55CC' %>
+                    </span>
+                    <% if workout.workout_joins.count > 0 %>
+                      with:
+                      <% workout.workout_joins.each do |wj| %>
+                        <%= link_to getNameOrEmail(User.find(wj.user_id)), view_profile_path(User.find(wj.user_id).id), :style => 'color: #8888EE' %>,
+                      <% end %>
+                    <% end %>
+                    <%= workout.date.try(:strftime,'%Y-%m-%d %H:%M') %>
+                    <%= link_to "[join]", join_workout_path(workout.id) %>
+                  </td>
+                  <td class="text-left">
+                    
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <div>&nbsp;</div>
+      
+      <h1>All Workouts stream</h1>
+      <div style="height: 200px; overflow-y: scroll; border: 1px dotted">
+        <table class="table table-striped">
+          <tbody>
+            <% @workouts.each do |workout| %>
               <tr>
                 <td>
-                  <%= link_to workout.title, workout_details_path(workout.id) %>
-                  by
                   <span style="color: #AA55CC">
-                    <%= link_to getNameOrEmail(workout.user), view_profile_path(workout.user.id), :style => 'color: #AA55CC' %>
-                  </span>
-                  <% if workout.workout_joins.count > 0 %>
-                    with:
-                    <% workout.workout_joins.each do |wj| %>
-                      <%= link_to getNameOrEmail(User.find(wj.user_id)), view_profile_path(User.find(wj.user_id).id), :style => 'color: #8888EE' %>,
+                    <% if workout.user.display_name && workout.user.display_name!='' %>
+                      <%= workout.user.display_name %>
+                    <% else %> 
+                      <%= workout.user.email %>
                     <% end %>
-                  <% end %>
-                  <%= workout.date.try(:strftime,'%Y-%m-%d %H:%M') %>
-                  <%= link_to "[join]", join_workout_path(workout.id) %>
-                </td>
-                <td class="text-left">
-                  
+                  </span>
+                  logged: 
+                  <%= link_to workout.title, workout_details_path(workout.id) %>
+                  at: 
+                  <%= workout.date %>
                 </td>
               </tr>
             <% end %>
-          <% end %>
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
+
+
     </div>
-
   <% end %>
-
-  <div class="col-sm-6">
-    <h1>All Workouts stream</h1>
-
-    <table class="table table-striped">
-      <tbody>
-        <% @workouts.each do |workout| %>
-          <tr>
-            <td>
-              <span style="color: #AA55CC">
-                <% if workout.user.display_name && workout.user.display_name!='' %>
-                  <%= workout.user.display_name %>
-                <% else %> 
-                  <%= workout.user.email %>
-                <% end %>
-              </span>
-              logged: 
-              <%= link_to workout.title, workout_details_path(workout.id) %>
-              at: 
-              <%= workout.date %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
 </div>

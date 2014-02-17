@@ -9,6 +9,9 @@
 		<ul class="dropdown-menu">
 			<li><a href="/excercises">Excercises</a></li>
 			<li><a href="/measurements">Measurements</a></li>
+			<% if is_admin? %>
+				<li><a href="/articles">Articles</a></li>
+			<% end %>
 		</ul>
 	</li>
 <% end %>

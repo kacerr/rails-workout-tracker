@@ -1,0 +1,14 @@
+  
+
+  <ul class="nav navbar-nav">
+  <% if signed_in? %>
+    <a class="navbar-brand">You are signed in as: <%= current_user.email %>, class: <%= current_user.user_class%></a>
+    <li>
+      <li><%= link_to "Sign out", signout_path %></li>
+  		<!--
+      <%= link_to "Log out!", signout_path, method: "delete", class: "btn btn-large btn-success" %>
+      -->
+    </li>
+  <% else %>
+  <% end %>
+  </ul>

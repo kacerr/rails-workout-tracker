@@ -10,5 +10,6 @@ class HomeController < ApplicationController
 				(select user_id from memberships where group_id in 
 						(select group_id from memberships where user_id=#{current_user.id} and show_in_groups_stream = 1)
 				)").order('date DESC') if (current_user) 
+		@news = Article.all.order('updated_at DESC').limit(5)
 	end
 end
