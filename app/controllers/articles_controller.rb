@@ -15,7 +15,6 @@ class ArticlesController < ApplicationController
   # GET /articles/new
   def new
     @article = Article.new
-    @article.user_id = current_user.user_id
   end
 
   # GET /articles/1/edit
@@ -26,7 +25,6 @@ class ArticlesController < ApplicationController
   # POST /articles.json
   def create
     @article = Article.new(article_params)
-    @article.user_id = current_user.id
 
     respond_to do |format|
       if @article.save

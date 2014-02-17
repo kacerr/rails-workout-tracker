@@ -27,6 +27,7 @@ WorkoutTracker::Application.routes.draw do
 
   get 'toggleown' => 'sessions#toggle_own', as: :toggleown
   delete 'signout' => 'sessions#destroy', as: :signout
+  #get 'signout' => 'sessions#destroy', as: :signout
 
   # user profile
   get 'user/:id/profile' => 'users#show_profile', as: :view_profile

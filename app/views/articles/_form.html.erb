@@ -28,7 +28,11 @@
     <div class="col-sm-4">
       <%= f.text_field :article_type, class: 'form-control' %>
     </div>
-    <%= f.hidden_field :user_id, value: @warticle.user_id%>
+    <% if @article.new_record? %>
+      <%= f.hidden_field :user_id, value: current_user.id%>
+    <% else %>
+      <%= f.hidden_field :user_id, value: @article.user_id%>
+    <% end %>
 
   </div>
   <div class="actions">
