@@ -6,6 +6,7 @@ class HomeController < ApplicationController
 		# for start we just display all workouts, newest first
 		@workouts = Workout.all.order('date DESC')
 		@groupworkouts = Workout
+      .unscoped
       .includes(:user)
       .where(
   			"user_id in 
