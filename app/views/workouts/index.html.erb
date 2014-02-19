@@ -14,9 +14,9 @@
   <tbody>
     <% @workouts.each do |workout| %>
       <tr>
-        <td><%= workout.title %></td>
-        <td><%= workout.content %></td>
-        <td><%= workout.user_id %></td>
+        <td class="col-sm-2"><%= workout.title %></td>
+        <td class="col-sm-8"><%= workout.content %></td>
+        <td><%= getNameOrEmail(workout.user) %></td>
         <td>
           <%= link_to 'Show', workout %>
           <%= link_to 'Edit', edit_workout_path(workout) %>

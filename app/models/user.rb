@@ -20,6 +20,12 @@ class User < ActiveRecord::Base
   has_many :groupparticipations, :through => :memberships
   has_many :workout_joins
 
+  VISIBILITY_TYPES = {
+    0 => "only me",
+    1 => "my groups",
+    2 => "everybody"
+  }
+
   def User.new_remember_token
     SecureRandom.urlsafe_base64
   end

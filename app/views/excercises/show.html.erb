@@ -13,12 +13,20 @@
 <% end %>
 
 <% unless @excercise.url.empty? %>
+	<p><strong>URL: </strong><a href="<%= @excercise.url %>"><%= @excercise.url %></a>
+<% end %>
+
+<% unless @excercise.video_url.empty? %>
 	<p>
 	  <strong>Video:</strong>
 	  <br>
-	  <iframe width="425" height="349" src="<%= @excercise.url %>" frameborder="0" allowfullscreen></iframe>
+	  <iframe width="425" height="349" src="<%= @excercise.video_url %>" frameborder="0" allowfullscreen></iframe>
 	</p>
 <% end %>
 
+<div clas="clearfix">&nbsp;</div>
+
+<!-- 
 <%= link_to 'Edit', edit_excercise_path(@excercise) %> |
-<%= link_to 'Back', excercises_path %>
+-->
+<%= link_to 'Back', session[:return_to] %>

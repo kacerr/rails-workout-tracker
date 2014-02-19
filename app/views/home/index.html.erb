@@ -35,8 +35,36 @@
 
     </div>
 
-    <div class="col-sm-6">
-      <h1>My Groups Workouts stream</h1>
+    <div class="col-sm-3">
+      <h2>Excercises</h2>
+      <div style="height: 200px; overflow-y: scroll; border: 1px dotted">
+        <table class="table table-striped">
+          <tbody>
+            <% if @excercises %>
+              <% @excercises.each do |excercise| %>
+                <tr>
+                  <td>
+                    <%= link_to excercise.name, excercise_path(excercise.id), :style =>'border-bottom:1px dotted;' %>
+                    by:
+                    <span style="color: #AA55CC">
+                      <%= link_to getNameOrEmail(excercise.user), view_profile_path(excercise.user.id), :style => 'color: #AA55CC' %>
+                    </span>
+                    <%= time_ago_in_words(excercise.updated_at) %> ago
+                  </td>
+                  <td class="text-left">
+                    
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+    <div class="col-sm-3">
+      <h2>My Groups Wrkts</h2>
 
       <div style="height: 200px; overflow-y: scroll; border: 1px dotted">
         <table class="table table-striped">
@@ -45,18 +73,17 @@
               <% @groupworkouts.each do |workout| %>
                 <tr>
                   <td>
-                    <%= link_to workout.title, workout_details_path(workout.id) %>
-                    by
                     <span style="color: #AA55CC">
-                      <%= link_to getNameOrEmail(workout.user), view_profile_path(workout.user.id), :style => 'color: #AA55CC' %>
+                      <%= link_to getNameOrEmail(workout.user), view_profile_path(workout.user.id), :style => 'color: #AA55CC' %>:
                     </span>
+                    <%= link_to workout.title, workout_details_path(workout.id), :style =>'border-bottom:1px dotted;' %>
                     <% if workout.workout_joins.count > 0 %>
                       with:
                       <% workout.workout_joins.each do |wj| %>
                         <%= link_to getNameOrEmail(User.find(wj.user_id)), view_profile_path(User.find(wj.user_id).id), :style => 'color: #8888EE' %>,
                       <% end %>
                     <% end %>
-                    <%= workout.date.try(:strftime,'%Y-%m-%d %H:%M') %>
+                    <%= time_ago_in_words(workout.date) %> ago
                     <%= link_to "[join]", join_workout_path(workout.id) %>
                   </td>
                   <td class="text-left">
@@ -71,7 +98,7 @@
 
       <div>&nbsp;</div>
       
-      <h1>All Workouts stream</h1>
+      <h2>All Workouts</h2>
       <div style="height: 200px; overflow-y: scroll; border: 1px dotted">
         <table class="table table-striped">
           <tbody>
