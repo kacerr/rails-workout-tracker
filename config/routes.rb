@@ -1,4 +1,6 @@
 WorkoutTracker::Application.routes.draw do
+  resources :user_measurements
+
   resources :articles
 
   resources :profiles
@@ -53,6 +55,9 @@ WorkoutTracker::Application.routes.draw do
 
   # join workout
   get 'workout/:id/join' => 'workouts#join', as: :join_workout
+
+  # user measurements
+  get 'my-measurements' => 'user_measurements#index', as: :my_measurements
 
   # inbox
   get 'inbox/:part' => 'messages#index', as: :inbox

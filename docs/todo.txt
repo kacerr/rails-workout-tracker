@@ -1,3 +1,13 @@
+2014-02-19
+----------------
+- user profile - add visibility attribute
+			0 = only me
+			1 = my groups
+			2 = public
+- articles - add category
+			0 = system
+			1 = user articles
+
 2014-02-16
 - streams divs on title click resize to much larger size
 - [done 2014-02-16] group membership: allow users to enable / disable showing of group in "groups" stream

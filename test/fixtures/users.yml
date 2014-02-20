@@ -8,6 +8,7 @@ one:
   display_name: MyString
   alternative_email: MyString
   password_digest: $2a$10$GkQjyUhMA1wwamshuXKWRut0PGYtjuq8hHQ8w8Wjpd6hNd2m1W/C6
+  visibility: 2
 
 two:
   id: 2
@@ -17,3 +18,4 @@ two:
   display_name: MyString
   alternative_email: MyString
   password_digest: MyString
+  visibility: 2

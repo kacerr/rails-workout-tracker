@@ -1,0 +1,47 @@
+<%= form_for(@user_measurement, html:{class: "form-horizontal"}) do |f| %>
+  <% if @user_measurement.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user_measurement.errors.count, "error") %> prohibited this user_measurement from being saved:</h2>
+
+      <ul>
+      <% @user_measurement.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :measurement_id, 'Measurement', class: 'col-sm-1 control-label' %>
+    <div class="col-sm-4">
+      <%= f.select :measurement_id, @measurements.all.collect {|m| [m.name, m.id]}, {prompt: 'select measurement to record'}, {class: 'form-control'} %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :date, class: 'col-sm-1 control-label' %>
+    <div class="col-sm-4">
+      <%= f.text_field :date, :value => @user_measurement.try(:date).try(:strftime,'%Y-%m-%d %H:%M'), class: 'form-control', :placeholder => "YYYY-MM-DD hh:mm" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :value, class: 'col-sm-1 control-label' %>
+    <div class="col-sm-4">
+      <%= f.text_field :value, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :value_string, class: 'col-sm-1 control-label' %>
+    <div class="col-sm-4">
+      <%= f.text_field :value_string, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :note, class: 'col-sm-1 control-label' %>
+    <div class="col-sm-8">
+      <%= f.text_area :note, size: "80x6", class: 'form-control' %>
+    </div>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

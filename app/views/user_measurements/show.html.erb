@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @user_measurement.user_id %>
+</p>
+
+<p>
+  <strong>Measurement:</strong>
+  <%= @user_measurement.measurement_id %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @user_measurement.value %>
+</p>
+
+<p>
+  <strong>Value string:</strong>
+  <%= @user_measurement.value_string %>
+</p>
+
+<p>
+  <strong>Note:</strong>
+  <%= @user_measurement.note %>
+</p>
+
+<%= link_to 'Edit', edit_user_measurement_path(@user_measurement) %> |
+<%= link_to 'Back', user_measurements_path %>

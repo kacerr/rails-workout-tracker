@@ -1,0 +1,47 @@
+<script>
+  var wt = wt || {}
+  wt.measurements = <%= raw @measurement_set.to_json(:methods => [ :unix_date, :value ]) %>
+</script>
+
+
+
+<%= link_to 'New User measurement', new_user_measurement_path %>
+<br>
+<div id="graph-placeholder" style="width:600px;height:300px"></div>
+
+<h1>Listing user measurements</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Measurement</th>
+      <th>Value</th>
+      <th>Value string</th>
+      <th>Note</th>
+      <th>Measured</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user_measurements.each do |user_measurement| %>
+      <tr>
+        <td><%= user_measurement.user_id %></td>
+        <td><%= user_measurement.measurement.name %></td>
+        <td><%= user_measurement.value %></td>
+        <td>
+          <%= user_measurement.value_string %>
+        </td>
+        <td><%= user_measurement.note %></td>
+        <td><%= user_measurement.date %></td>
+        <td>
+          <%= link_to 'Show', user_measurement %>
+          <%= link_to 'Edit', edit_user_measurement_path(user_measurement) %>
+          <%= link_to 'Destroy', user_measurement, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

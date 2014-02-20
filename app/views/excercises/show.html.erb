@@ -12,11 +12,11 @@
 	</p>
 <% end %>
 
-<% unless @excercise.url.empty? %>
+<% unless @excercise.has_attribute?(:url) %>
 	<p><strong>URL: </strong><a href="<%= @excercise.url %>"><%= @excercise.url %></a>
 <% end %>
 
-<% unless @excercise.video_url.empty? %>
+<% unless @excercise.has_attribute?(:video_url) %>
 	<p>
 	  <strong>Video:</strong>
 	  <br>
