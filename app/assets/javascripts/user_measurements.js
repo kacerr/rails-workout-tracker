@@ -60,5 +60,7 @@
                      timeformat: "%m.%y"}
                     }
                     );
+
+            if (aData.length>0) $("#graph-placeholder").show();
         }
     });

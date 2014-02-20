@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
   has_many :memberships, :dependent => :destroy
   has_many :groupparticipations, :through => :memberships
   has_many :workout_joins
+  has_many :measurements, class_name: "UserMeasurement"
+
 
   VISIBILITY_TYPES = {
     0 => "only me",

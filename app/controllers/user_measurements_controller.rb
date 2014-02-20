@@ -4,7 +4,7 @@ class UserMeasurementsController < ApplicationController
   # GET /user_measurements
   # GET /user_measurements.json
   def index
-    @user_measurements = UserMeasurement.all.joins(:measurement)
+    @user_measurements = current_user.measurements.joins(:measurement)
     @measurement_set = {}
     @user_measurements.each do |um|
       a = @measurement_set[um.measurement.name] || []
