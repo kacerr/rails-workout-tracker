@@ -12,7 +12,7 @@ class WorkoutsController < ApplicationController
         @workouts = Workout.all
       end
     else
-      @workouts = current_user.workouts.load
+      @workouts = current_user.workouts.unscoped.load
     end
   end
 

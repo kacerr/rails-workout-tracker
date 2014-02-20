@@ -23,6 +23,7 @@ class UserMeasurementsController < ApplicationController
   # GET /user_measurements/new
   def new
     @user_measurement = UserMeasurement.new
+    @measurements = Measurement.all
   end
 
   # GET /user_measurements/1/edit
