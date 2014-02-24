@@ -12,7 +12,8 @@ class WorkoutsController < ApplicationController
         @workouts = Workout.all
       end
     else
-      @workouts = current_user.workouts.unscoped.load
+      #@workouts = Workout.unscoped.where(user_id: current_user.id).load
+      @workouts = current_user.workouts
     end
   end
 

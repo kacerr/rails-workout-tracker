@@ -4,7 +4,7 @@ class HomeController < ApplicationController
 	def index
 		# we are going to list workouts stream
 		# for start we just display all workouts, newest first
-		@workouts = Workout.all.order('date DESC')
+    @workouts = Workout.public_scope.order('date DESC')
 		@groupworkouts = Workout
       .unscoped
       .includes(:user)
