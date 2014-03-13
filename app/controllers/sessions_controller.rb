@@ -5,14 +5,33 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by(email: params[:session][:email].downcase)
-    if user && user.authenticate(params[:session][:password])
- 	    sign_in user
- 	    flash[:notice] = 'Welcome to the site'
-      redirect_to welcome_path
+    # if user logs in using social network
+    if env["omniauth.auth"]
+      # we update record in users oauth table
+      user_oauth = UsersOauth.from_omniauth(env["omniauth.auth"])
+      # then we lookup user using email
+      user = User.find_by(email: user_oauth.email)
+      # then we either have existing user
+      if user
+        sign_in user
+        flash[:notice] = 'Welcome to the site'
+        redirect_to welcome_path
+      else
+        user = User.from_omniauth(env["omniauth.auth"])
+        sign_in user
+        flash[:notice] = "Welcome to the site, we created new account for you based on information received from #{user_oauth.provider}"
+        redirect_to welcome_path
+      end
     else
-      flash[:error] = 'Invalid email/password combination'
-      redirect_to signin_path
+      user = User.find_by(email: params[:session][:email].downcase)
+      if user && user.authenticate(params[:session][:password])
+        sign_in user
+        flash[:notice] = 'Welcome to the site'
+        redirect_to welcome_path
+      else
+        flash[:error] = 'Invalid email/password combination'
+        redirect_to signin_path
+      end
     end
   end
 

@@ -35,6 +35,14 @@ end
 gem 'bootstrap-sass'
 gem 'bcrypt-ruby'
 
+# Authentication
+gem 'omniauth'
+gem 'omniauth-facebook'
+
+# environment configurations
+gem 'dotenv-rails'
+
+
 group :development do
   gem 'rails_layout'
 end

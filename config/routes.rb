@@ -22,6 +22,7 @@ WorkoutTracker::Application.routes.draw do
 
   get 'signup' => 'users#new', as: :signup
   get 'signin' => 'sessions#new', as: :signin
+  get 'auth/:provider/callback' => 'sessions#create'
   get 'reset-password' => 'sessions#reset_password', as: :reset_password
   post 'reset-password' => 'sessions#process_reset_password'
   get 'reset-password-finish/:token' => 'sessions#reset_password_finish', as: :reset_password_finish

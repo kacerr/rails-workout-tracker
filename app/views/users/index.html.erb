@@ -21,9 +21,11 @@
           <% if user.id != current_user.id %>
             <%= link_to 'Friends', befriend_path(user.id) %>
           <% end %>
-          <%= link_to 'Show', user %>
-          <%= link_to 'Edit', edit_user_path(user) %>
-          <%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% if is_admin? %>
+            <%= link_to 'Show', user %>
+            <%= link_to 'Edit', edit_user_path(user) %>
+            <%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% end %>
         </td>
       </tr>
     <% end %>
@@ -32,4 +34,6 @@
 
 <br>
 
-<%= link_to 'New User', new_user_path %>
+<% if is_admin? %>
+  <%= link_to 'New User', new_user_path %>
+<% end %>
