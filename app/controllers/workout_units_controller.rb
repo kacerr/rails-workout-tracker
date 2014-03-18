@@ -29,7 +29,9 @@ class WorkoutUnitsController < ApplicationController
     respond_to do |format|
       if @workout_unit.save
         format.html { redirect_to @workout_unit, notice: 'Workout unit was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @workout_unit }
+        format.json { 
+          render :json => @workout_unit.as_json(:include => :workout_unit_type), action: 'show', status: :created, location: @workout_unit 
+        }
       else
         format.html { render action: 'new' }
         format.json { render json: @workout_unit.errors, status: :unprocessable_entity }
