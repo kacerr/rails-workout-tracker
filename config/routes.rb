@@ -1,4 +1,8 @@
 WorkoutTracker::Application.routes.draw do
+  resources :workout_unit_types
+
+  resources :workout_units
+
   resources :user_measurements
 
   resources :articles

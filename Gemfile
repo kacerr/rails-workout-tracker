@@ -27,6 +27,9 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
+# passing data rails -> js
+gem 'gon'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -45,6 +48,13 @@ gem 'dotenv-rails'
 
 group :development do
   gem 'rails_layout'
+  gem 'capistrano'
+  # rails specific capistrano funcitons
+  gem 'capistrano-rails', '~> 1.1.0'
+  # integrate bundler with capistrano
+  gem 'capistrano-bundler'
+  # if you are using RBENV
+  #gem 'capistrano-rbenv', "~> 2.0"
 end
 
 # Use ActiveModel has_secure_password

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140312185130) do
+ActiveRecord::Schema.define(version: 20140318162204) do
 
   create_table "articles", force: true do |t|
     t.integer  "user_id"
@@ -146,6 +146,25 @@ ActiveRecord::Schema.define(version: 20140312185130) do
     t.string   "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "workout_unit_types", force: true do |t|
+    t.string   "name"
+    t.string   "category"
+    t.integer  "difficulty"
+    t.text     "description"
+    t.string   "icon"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "color"
+  end
+
+  create_table "workout_units", force: true do |t|
+    t.datetime "date"
+    t.integer  "workout_unit_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "workouts", force: true do |t|

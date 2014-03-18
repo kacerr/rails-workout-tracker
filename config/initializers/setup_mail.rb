@@ -3,7 +3,7 @@ ActionMailer::Base.smtp_settings = {
   :port                 => 587,
   :domain               => "gmail.com",
   :user_name            => "workout.tracker.2014@gmail.com",
-  :password             => "workout@gmail",
+  :password             => "workout@2014",
   :authentication       => "plain",
   :enable_starttls_auto => true
 }

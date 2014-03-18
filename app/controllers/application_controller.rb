@@ -7,5 +7,4 @@ class ApplicationController < ActionController::Base
   after_action :store_location
 
   I18n.enforce_available_locales = false
-
 end

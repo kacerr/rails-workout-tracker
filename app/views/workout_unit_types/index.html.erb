@@ -1,0 +1,35 @@
+<h1>Listing workout_unit_types</h1>
+
+<table  class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Difficulty</th>
+      <th>Description</th>
+      <th>Icon</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @workout_unit_types.each do |workout_unit_type| %>
+      <tr>
+        <td><%= workout_unit_type.name %></td>
+        <td><%= workout_unit_type.category %></td>
+        <td><%= workout_unit_type.difficulty %></td>
+        <td><%= workout_unit_type.description %></td>
+        <td><%= workout_unit_type.icon %></td>
+        <td><%= link_to 'Show', workout_unit_type %></td>
+        <td><%= link_to 'Edit', edit_workout_unit_type_path(workout_unit_type) %></td>
+        <td><%= link_to 'Destroy', workout_unit_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Workout unit type', new_workout_unit_type_path %>

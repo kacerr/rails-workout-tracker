@@ -1,0 +1,29 @@
+<h1>Listing workout_units</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Workout unit type</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @workout_units.each do |workout_unit| %>
+      <tr>
+        <td><%= workout_unit.date %></td>
+        <td><%= workout_unit.workout_unit_type_id %></td>
+        <td><%= link_to 'Show', workout_unit %></td>
+        <td><%= link_to 'Edit', edit_workout_unit_path(workout_unit) %></td>
+        <td><%= link_to 'Destroy', workout_unit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Workout unit', new_workout_unit_path %>
