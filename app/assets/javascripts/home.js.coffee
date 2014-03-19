@@ -45,11 +45,11 @@ ready = ->
 			error: (jqXHR, textStatus, errorThrown) ->
 				$('body').append "AJAX Error: #{textStatus}"
 			success: (data, textStatus, jqXHR) ->
-				#console.log(data)
-				#console.log $('#selectedDate').data('linked_cell')
-				#console.log $('#day-score-' + $('#selectedDate').data('linked_cell')).html()
-				#console.log '<div style=\'background-color: ' + data.workout_unit_type.color + '\'>+' + data.workout_unit_type.difficulty + '</div>'
-				$('#day-score-' + $('#selectedDate').data('linked_cell')).parent().append('<div style=\'background-color: ' + data.workout_unit_type.color + '\'>+' + data.workout_unit_type.difficulty + '</div>')
+				console.log(data)
+				console.log $('#selectedDate').data('linked_cell')
+				console.log $('#day-score-' + $('#selectedDate').data('linked_cell')).html()
+				console.log '<div style=\'background-color: ' + data.workout_unit_type.color + '\'>+' + data.workout_unit_type.difficulty + '</div>'
+				$('#day-score-' + $('#selectedDate').data('linked_cell')).append('<div style=\'background-color: ' + data.workout_unit_type.color + '\'>+' + data.workout_unit_type.difficulty + '</div>')
 				#console.log($('#day-score-' + $('#selectedDate').data('linked_cell')))
 				#$('body').append "Successful AJAX call: #{data}"
 

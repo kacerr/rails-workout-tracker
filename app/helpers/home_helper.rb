@@ -11,13 +11,13 @@ module HomeHelper
 		out+="<tr>"
 		(-6..6).each do |i|
 			current_day = now + i.days
-			wus = WorkoutUnit.all.joins(:workout_unit_type).where("DATE_FORMAT(date,'%Y-%m-%d')='#{current_day.strftime('%Y-%m-%d')}'")
-			out+="<td style=\"width: 40px; padding: 8px 3px 8px 3px;\">"
-			out+="<div><a class='testElement'>test</a></div>"
+			wus = current_user.workout_units.joins(:workout_unit_type).where("DATE_FORMAT(date,'%Y-%m-%d')='#{current_day.strftime('%Y-%m-%d')}'")
+			out+="<td id='day-score-#{current_day.strftime("%d-%m")}' style=\"width: 40px; padding: 8px 3px 8px 3px;\">"
+			#out+="<div><a class='testElement'>test</a></div>"
 			wus.each do |wu|
 				#out+=wu.workout_unit_type.inspect
 				total_score += wu.workout_unit_type.difficulty
-				out+="<div id='day-score-#{current_day.strftime("%d-%m")}' data-id='#{wu.id}' class='workout-unit-item' style='width: 40px; background-color: #{wu.workout_unit_type.color}'>+#{wu.workout_unit_type.difficulty}</div>"
+				out+="<div data-id='#{wu.id}' class='workout-unit-item' style='width: 40px; background-color: #{wu.workout_unit_type.color}'>+#{wu.workout_unit_type.difficulty}</div>"
 			end
 			out+="</td>"
 		end
