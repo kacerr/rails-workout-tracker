@@ -65,6 +65,33 @@ class WorkoutUnitsController < ApplicationController
     end
   end
 
+  def summary
+    # we need list of users that are going to be displayed (=they have something logged in)
+    users = User.where(id: WorkoutUnit.uniq.pluck(:user_id))
+    @users_hash = {}
+    users.each do |u|
+      @users_hash[u.id] = u.attributes
+    end
+
+    # we also need sum of point they get
+    query = "select user_id, sum(difficulty) from workout_units wu
+      left join workout_unit_types wut on wut.id = wu.workout_unit_type_id
+      group by user_id"
+    results = ActiveRecord::Base.connection.execute(query)
+    results.each do |r|
+      @users_hash[r[0]]["total"]=r[1]
+    end
+
+    # and we need to have all recorder workout units stored in the hash[:user_id][:date][]
+    wus = WorkoutUnit.joins(:workout_unit_type).load
+    @wus_hash = {}
+    wus.each do |wu|
+      @wus_hash[wu.user_id] ||= {}
+      @wus_hash[wu.user_id][wu.date.strftime('%Y-%m-%d')] ||= []
+      @wus_hash[wu.user_id][wu.date.strftime('%Y-%m-%d')] << wu
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_workout_unit

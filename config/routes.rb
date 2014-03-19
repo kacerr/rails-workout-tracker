@@ -1,14 +1,7 @@
 WorkoutTracker::Application.routes.draw do
-  resources :workout_unit_types
-
-  resources :workout_units
-
   resources :user_measurements
-
   resources :articles
-
   resources :profiles
-
   resources :measurements
   resources :excercises
   resources :workouts
@@ -69,6 +62,12 @@ WorkoutTracker::Application.routes.draw do
 
   # workouts
   get 'workout-details/:id' => 'workouts#show_details', as: :workout_details
+
+  # workout_units
+  get 'workout_units/summary' => 'workout_units#summary', as: :workout_units_summary
+  resources :workout_unit_types
+  resources :workout_units
+
 
 
   # You can have the root of your site routed with "root"
