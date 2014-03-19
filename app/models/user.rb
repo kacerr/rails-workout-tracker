@@ -49,12 +49,15 @@ class User < ActiveRecord::Base
   end
 
   def self.from_omniauth(auth)
-    where(auth.slice(:email)).first_or_initialize.tap do |user|
+    where(email: auth.slice(:email)).first_or_initialize.tap do |user|
       user.first_name = auth.extra.raw_info.first_name
       user.last_name = auth.extra.raw_info.last_name
       user.display_name = auth.name
       user.email = auth.info.email if auth.info.respond_to? :email
-      user.save(:validate => false)
+      # TODO: i would like to bypass has_secure_password validations
+      # HACK: for now i just set password_digest to some nonense
+      user.password_digest='nooonseeense'
+      user.save validate: false
     end
   end
 

@@ -4,12 +4,12 @@ module HomeHelper
 		out = "<span style='display:none' id='selectedDate' data-date_long='' data-linked_cell=''></span>"
 		out += "<table class=\"calendar pull-left\" style=\"margin-bottom: 0px;\"><tr>"
 		now = DateTime.now
-		(-6..6).each do |i|
+		(-12..0).each do |i|
 			current_day = now + i.days
 			out+="<td style=\"width: 40px; padding: 8px 3px 8px 3px;\" data-date_short='#{current_day.strftime("%d/%m")}' data-linked_cell='#{current_day.strftime("%d-%m")}' data-date_long='#{current_day.strftime("%Y/%m/%d")}'>#{current_day.strftime("%d/%m")}</td>"
 		end
 		out+="<tr>"
-		(-6..6).each do |i|
+		(-12..0).each do |i|
 			current_day = now + i.days
 			wus = current_user.workout_units.joins(:workout_unit_type).where("DATE_FORMAT(date,'%Y-%m-%d')='#{current_day.strftime('%Y-%m-%d')}'")
 			out+="<td id='day-score-#{current_day.strftime("%d-%m")}' style=\"width: 40px; padding: 8px 3px 8px 3px;\">"
