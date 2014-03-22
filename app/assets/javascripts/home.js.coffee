@@ -55,18 +55,12 @@ ready = ->
 
 		$('#selectWorkoutUnit').modal('hide')
 
-	window.wt.test = (e) ->
-		#console.log e
-		#console.log $(this).parent()
-		#console.log $(this).parent().parent()
-		$(this).parent().parent().append('<div> todle je na konci!</div>')
+	$('[data-toggle="tooltip"]').tooltip({'placement': 'top'});
+	$('.calendar.homepage tr:first td').on 'mouseover', window.event, highlightCell
+	$('.calendar.homepage tr:first td').on 'mouseout', window.event, unhighlightCell
+	$('.calendar.homepage tr:first td').on 'click', window.event, addWorkoutUnit
 
-	$('.calendar tr:first td').on 'mouseover', event, highlightCell
-	$('.calendar tr:first td').on 'mouseout', event, unhighlightCell
-	$('.calendar tr:first td').on 'click', event, addWorkoutUnit
-
-	$('.testElement').on 'click', event, window.wt.test 
-	$('.workout-unit-item').on 'click', event, removeWorkoutUnit
+	$('.workout-unit-item').on 'click', window.event, removeWorkoutUnit
 
 $(document).ready ready
 $(document).on "page:load", ready

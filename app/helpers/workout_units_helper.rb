@@ -24,7 +24,7 @@ module WorkoutUnitsHelper
 					wus.each do |wu|
 						#out+=wu.workout_unit_type.inspect
 						total_score += wu.workout_unit_type.difficulty
-						out+="<div data-id='#{wu.id}' class='workout-unit-item' style='width: 40px; background-color: #{wu.workout_unit_type.color}'>+#{wu.workout_unit_type.difficulty}</div>"
+						out+="<div data-id='#{wu.id}' data-toggle='tooltip' title='+#{wu.workout_unit_type.difficulty} - #{wu.workout_unit_type.category}/#{wu.workout_unit_type.name}' class='workout-unit-item' style='width: 40px; background-color: #{wu.workout_unit_type.color}'>+#{wu.workout_unit_type.difficulty}</div>"
 					end
 				end
 				out+="</td>"

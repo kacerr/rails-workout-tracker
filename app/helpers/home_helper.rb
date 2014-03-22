@@ -2,7 +2,7 @@ module HomeHelper
 	def draw_calendar
 		total_score = 0
 		out = "<span style='display:none' id='selectedDate' data-date_long='' data-linked_cell=''></span>"
-		out += "<table class=\"calendar pull-left\" style=\"margin-bottom: 0px;\"><tr>"
+		out += "<table class=\"calendar homepage pull-left\" style=\"margin-bottom: 0px;\"><tr>"
 		now = DateTime.now
 		(-12..0).each do |i|
 			current_day = now + i.days
@@ -17,7 +17,7 @@ module HomeHelper
 			wus.each do |wu|
 				#out+=wu.workout_unit_type.inspect
 				total_score += wu.workout_unit_type.difficulty
-				out+="<div data-id='#{wu.id}' class='workout-unit-item' style='width: 40px; background-color: #{wu.workout_unit_type.color}'>+#{wu.workout_unit_type.difficulty}</div>"
+				out+="<div data-id='#{wu.id}' data-toggle='tooltip' title='+#{wu.workout_unit_type.difficulty} - #{wu.workout_unit_type.category}/#{wu.workout_unit_type.name}' class='workout-unit-item' style='width: 40px; background-color: #{wu.workout_unit_type.color}'>+#{wu.workout_unit_type.difficulty}</div>"
 			end
 			out+="</td>"
 		end

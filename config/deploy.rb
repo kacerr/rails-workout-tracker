@@ -39,13 +39,17 @@ set :deploy_to, '/srv/webs/workoutTracker'
 
 set :linked_files, %w{ config/database.yml .env }
 
+set :ping_url, "https://wt.railsplayground.org"
+
 namespace :deploy do
 
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
-      # execute :touch, release_path.join('tmp/restart.txt')
+      execute :touch, release_path.join('tmp/restart.txt')
+      # Make sure that application is "reloaded" and ready to server content quickly just after deploy
+      system "curl --silent #{fetch(:ping_url)}"      
     end
   end
 
