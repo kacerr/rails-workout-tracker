@@ -31,7 +31,7 @@ server 'demon.zlutazimnice.cz',
        roles: %w{web app db},
        ssh_options: {
            port: 32024,
-           user: 'user_name', # overrides user setting above
+           #user: 'user_name', # overrides user setting above
            keys: %w(/Users/novakj/.ssh/id_rsa),
            forward_agent: false,
            auth_methods: %w(publickey password)

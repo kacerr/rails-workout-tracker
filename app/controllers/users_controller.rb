@@ -208,6 +208,15 @@ class UsersController < ApplicationController
     redirect_back_or "/user/my-group-edit/#{params[:group_id]}"
   end
 
+  def add_me_to_group
+    #render :text => "gonna add #{current_user.get_display_name}"
+    membership = Membership.new(user_id: current_user.id, group_id: params[:group_id])
+    membership.save
+    flash[:notice] = "You were added to #{Group.find(membership.group_id).name} group"
+    redirect_to root_path
+  end
+
+
   def add_user_to_group
     membership = Membership.new(user_id: params[:id], group_id: params[:group_id])
     membership.save

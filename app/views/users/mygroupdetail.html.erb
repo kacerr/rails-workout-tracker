@@ -34,6 +34,12 @@
         <%= check_box_tag "public", 1, @group.public, class: 'form-control'%>
       </div>
     </div>
+    <div class="form-group">
+      <div><label class="col-sm-3 control-label">addme link</label></div>
+      <div class="col-sm-9">
+          <%= add_me_to_group_url(@group) %>
+      </div>
+    </div>
     <div class="form-group col-sm-12">
       <% if @group.new_record? %>
         <%= submit_tag "Create group", value: "create", class: "btn btn-large btn-primary pull-right" %>

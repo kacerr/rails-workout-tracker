@@ -44,6 +44,7 @@ WorkoutTracker::Application.routes.draw do
   get 'user/my-group-edit/:id' => 'users#mygroup_edit', as: :mygroup_edit
   get 'user/groups-i-am-in' => 'users#groups_i_am_in', as: :groups_i_am_in
   ## group add / remove members
+  get 'user/myself/add-to-group/:group_id' => 'users#add_me_to_group', as: :add_me_to_group
   get 'user/:id/remove-from-group/:group_id' => 'users#remove_user_from_group'
   get 'user/:id/add-to-group/:group_id' => 'users#add_user_to_group'
   get 'user/remove-me-from-group/:id' => 'users#remove_me_from_group', as: :remove_me_from_group

@@ -67,10 +67,18 @@ class WorkoutUnitsController < ApplicationController
 
   def summary
     # we need list of users that are going to be displayed (=they have something logged in)
-    users = User.where(id: WorkoutUnit.uniq.pluck(:user_id))
+    users = User
+      .where(id: WorkoutUnit.uniq.pluck(:user_id))
+      .where("id in (
+          select distinct user_id from memberships where group_id in (
+            select distinct group_id from memberships where user_id=#{current_user.id}
+          )
+        )")
     @users_hash = {}
+    user_ids = []
     users.each do |u|
       @users_hash[u.id] = u.attributes
+      user_ids << u.id
     end
 
     # we also need sum of point they get
@@ -79,7 +87,8 @@ class WorkoutUnitsController < ApplicationController
       group by user_id"
     results = ActiveRecord::Base.connection.execute(query)
     results.each do |r|
-      @users_hash[r[0]]["total"]=r[1]
+      #HACK: this is brutal, we are processing unnecessary records, fix soon
+      @users_hash[r[0]]["total"]=r[1] if user_ids.include? r[0]
     end
 
     # and we need to have all recorder workout units stored in the hash[:user_id][:date][]

@@ -61,6 +61,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def get_display_name
+    self.display_name || "#{self.first_name} #{self.last_name}"
+  end
+
   private
 
     def init

@@ -39,7 +39,7 @@ set :deploy_to, '/srv/webs/workoutTracker'
 
 set :linked_files, %w{ config/database.yml .env }
 
-set :ping_url, "https://wt.railsplayground.org"
+set :ping_url, "http://wt.railsplayground.org"
 
 namespace :deploy do
 
