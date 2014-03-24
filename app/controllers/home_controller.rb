@@ -18,4 +18,7 @@ class HomeController < ApplicationController
 		@news = Article.all.order('updated_at DESC').limit(5)
     @excercises = Excercise.all
 	end
+
+  def documentation
+  end
 end

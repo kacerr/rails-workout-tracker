@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140318162204) do
+ActiveRecord::Schema.define(version: 20140324000242) do
 
   create_table "articles", force: true do |t|
     t.integer  "user_id"
     t.string   "title"
-    t.text     "content"
+    t.text     "content",      limit: 16777215
     t.string   "article_type"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 20140318162204) do
     t.datetime "birth_date"
     t.string   "country"
     t.string   "city"
-    t.text     "bio"
+    t.text     "bio",        limit: 16777215
     t.float    "height"
     t.float    "weight"
     t.datetime "created_at"
@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(version: 20140318162204) do
     t.integer  "measurement_id"
     t.integer  "value"
     t.string   "value_string"
-    t.text     "note"
+    t.text     "note",           limit: 16777215
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "date"
@@ -114,6 +114,7 @@ ActiveRecord::Schema.define(version: 20140318162204) do
     t.string   "display_name"
     t.string   "alternative_email"
     t.integer  "visibility"
+    t.integer  "default_group_id"
   end
 
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
@@ -152,7 +153,7 @@ ActiveRecord::Schema.define(version: 20140318162204) do
     t.string   "name"
     t.string   "category"
     t.integer  "difficulty"
-    t.text     "description"
+    t.text     "description", limit: 16777215
     t.string   "icon"
     t.datetime "created_at"
     t.datetime "updated_at"

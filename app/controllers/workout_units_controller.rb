@@ -67,17 +67,30 @@ class WorkoutUnitsController < ApplicationController
 
   def summary
     # we need list of users that are going to be displayed (=they have something logged in)
-    users = User
-      .where(id: WorkoutUnit.uniq.pluck(:user_id))
-      .where("id in (
-          select distinct user_id from memberships where group_id in (
-            select distinct group_id from memberships where user_id=#{current_user.id}
-          )
-        )")
+    if (params[:group_id])
+      users = User
+        .where(id: WorkoutUnit.uniq.pluck(:user_id))
+        .where("id in (select distinct user_id from memberships where group_id=#{params[:group_id]})")
+    else
+      if current_user.default_group_id.blank?
+        users = [current_user]
+      else
+        users = User
+          .where(id: WorkoutUnit.uniq.pluck(:user_id))
+          .where("id in (select distinct user_id from memberships where group_id=#{current_user.default_group_id})")
+#          .where("id in (
+#              select distinct user_id from memberships where group_id in (
+#                select distinct group_id from memberships where user_id=#{current_user.id}
+#              )
+#            )")
+      end
+    end
+
     @users_hash = {}
     user_ids = []
     users.each do |u|
       @users_hash[u.id] = u.attributes
+      @users_hash[u.id]["display_name"]=u.get_display_name
       user_ids << u.id
     end
 
@@ -99,6 +112,9 @@ class WorkoutUnitsController < ApplicationController
       @wus_hash[wu.user_id][wu.date.strftime('%Y-%m-%d')] ||= []
       @wus_hash[wu.user_id][wu.date.strftime('%Y-%m-%d')] << wu
     end
+
+    # we also want to have list of groups user is a member to draw links for "different" summaries
+    @groups = Group.where(id: current_user.memberships.pluck(:group_id))
   end
 
   private

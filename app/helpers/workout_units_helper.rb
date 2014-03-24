@@ -13,7 +13,7 @@ module WorkoutUnitsHelper
 
 		@users_hash.keys.each do |user_id|
 			out+="<tr>"
-			out += "<td style='width: 150px;'>#{@users_hash[user_id]["first_name"]} #{@users_hash[user_id]["last_name"]}</td>"
+			out += "<td style='width: 150px;'>#{@users_hash[user_id]["display_name"]}</td>"
 			(-20..0).each do |i|
 				current_day = now + i.days
 				wus = @wus_hash[user_id][current_day.strftime('%Y-%m-%d')]

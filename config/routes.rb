@@ -16,6 +16,7 @@ WorkoutTracker::Application.routes.draw do
   root 'home#index'
 
   get 'welcome' => 'home#index', as: :welcome
+  get 'documentation' => 'home#documentation', as: :documentation
 
   get 'signup' => 'users#new', as: :signup
   get 'signin' => 'sessions#new', as: :signin
@@ -31,6 +32,8 @@ WorkoutTracker::Application.routes.draw do
 
   # user profile
   get 'user/:id/profile' => 'users#show_profile', as: :view_profile
+  # set default group
+  post 'user/myself/set-default-group/:group_id' => 'users#set_default_group', as: :set_my_default_group
 
   # user to user interaction
   get 'befriend/:id' => 'users#befriend', as: :befriend
@@ -66,6 +69,7 @@ WorkoutTracker::Application.routes.draw do
 
   # workout_units
   get 'workout_units/summary' => 'workout_units#summary', as: :workout_units_summary
+  get 'workout_units/summary/group/:group_id' => 'workout_units#summary', as: :workout_units_summary_for_group
   resources :workout_unit_types
   resources :workout_units
 

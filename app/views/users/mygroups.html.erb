@@ -29,6 +29,9 @@
 
         <td>
           <% if @listing_only %>
+            <% if group.id != current_user.default_group_id %>
+              <%= link_to 'Set default', set_my_default_group_path(group),  method: :post %>
+            <% end %>
             <%= link_to 'Remove me', remove_me_from_group_path(id: group.id) %>
             <% if @memberships_ids.include? group.id %>
               <%= link_to 'Hide from stream', hide_group_from_stream_path(id: group.id) %>

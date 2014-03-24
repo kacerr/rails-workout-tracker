@@ -223,6 +223,13 @@ class UsersController < ApplicationController
     redirect_back_or "/user/my-group-edit/#{params[:group_id]}"
   end
 
+  def set_default_group
+    user = User.find(current_user.id)
+    user.default_group_id = params[:group_id]
+    user.save(:validate => false)
+    redirect_back_or groups_i_am_in_path
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user

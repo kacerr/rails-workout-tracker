@@ -1,4 +1,10 @@
 <h1>YB tracker summary </h1>
 <div>
 	<%= raw draw_summary_calendar %>
+	<div class="clearfix">&nbsp;</div>
+	<br>
+	Show summary for group: 
+	<% @groups.each do |group| %>
+	  <%= link_to group.name, workout_units_summary_for_group_path(group)%>
+	<% end %>
 </div>

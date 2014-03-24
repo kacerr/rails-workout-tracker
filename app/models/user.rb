@@ -17,7 +17,6 @@ class User < ActiveRecord::Base
   has_many :sent_messages, class_name: "Message", foreign_key: "from_user_id"
   has_many :groups, foreign_key: "owner_id"
   has_many :memberships, :dependent => :destroy
-  has_many :groupparticipations, :through => :memberships
   has_many :workout_joins
   has_many :workout_units
   has_many :measurements, class_name: "UserMeasurement"
