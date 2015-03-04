@@ -31,6 +31,10 @@ GEM
     bootstrap-sass (3.1.0.1)
       sass (~> 3.2)
     builder (3.1.4)
+    byebug (3.5.1)
+      columnize (~> 0.8)
+      debugger-linecache (~> 1.2)
+      slop (~> 3.6)
     capistrano (3.1.0)
       i18n
       rake (>= 10.0.0)
@@ -41,6 +45,7 @@ GEM
     capistrano-rails (1.1.1)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
+    coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -48,6 +53,8 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
+    columnize (0.9.0)
+    debugger-linecache (1.2.0)
     dotenv (0.10.0)
     dotenv-rails (0.10.0)
       dotenv (= 0.10.0)
@@ -73,6 +80,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    method_source (0.8.2)
     mime-types (1.25.1)
     minitest (4.7.5)
     multi_json (1.8.4)
@@ -99,6 +107,15 @@ GEM
       oauth2 (~> 0.9.3)
       omniauth (~> 1.2)
     polyglot (0.3.3)
+    pry (0.10.1)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    pry-byebug (3.0.1)
+      byebug (~> 3.4)
+      pry (~> 0.10)
+    quiet_assets (1.1.0)
+      railties (>= 3.1, < 5.0)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -127,6 +144,7 @@ GEM
     sdoc (0.4.0)
       json (~> 1.8)
       rdoc (~> 4.0, < 5.0)
+    slop (3.6.0)
     sprockets (2.10.1)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -174,6 +192,9 @@ DEPENDENCIES
   mysql2
   omniauth
   omniauth-facebook
+  pry
+  pry-byebug
+  quiet_assets
   rails (= 4.0.2)
   rails_layout
   sass-rails (~> 4.0.0)

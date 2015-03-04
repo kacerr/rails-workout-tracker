@@ -67,7 +67,9 @@ class WorkoutUnitsController < ApplicationController
 
   def summary
     # we need list of users that are going to be displayed (=they have something logged in)
+    group = nil
     if (params[:group_id])
+      group = Group.find(params[:group_id])
       users = User
         .where(id: WorkoutUnit.uniq.pluck(:user_id))
         .where("id in (select distinct user_id from memberships where group_id=#{params[:group_id]})")
@@ -75,6 +77,7 @@ class WorkoutUnitsController < ApplicationController
       if current_user.default_group_id.blank?
         users = [current_user]
       else
+        group = current_user.default_group_id
         users = User
           .where(id: WorkoutUnit.uniq.pluck(:user_id))
           .where("id in (select distinct user_id from memberships where group_id=#{current_user.default_group_id})")
@@ -95,9 +98,16 @@ class WorkoutUnitsController < ApplicationController
     end
 
     # we also need sum of point they get
+    if group
+      date_from = group.summary_from.try(:strftime, '%Y.%m.%d') || '1900.1.1'  
+    else
+      date_from = '1900.1.1'
+    end
     query = "select user_id, sum(difficulty) from workout_units wu
       left join workout_unit_types wut on wut.id = wu.workout_unit_type_id
+      where wu.date > '#{date_from}'
       group by user_id"
+    
     results = ActiveRecord::Base.connection.execute(query)
     results.each do |r|
       #HACK: this is brutal, we are processing unnecessary records, fix soon

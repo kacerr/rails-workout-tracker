@@ -159,11 +159,12 @@ class UsersController < ApplicationController
   def mygroups_save
     is_update = false
     if params[:commit]=="Create group"
-      @group = Group.new(name: params[:name], description: params[:description], public: params[:public], owner_id: current_user.id)
+      @group = Group.new(name: params[:name], description: params[:description], summary_from: params[:summary_from][0], public: params[:public], owner_id: current_user.id)
     else
       @group = Group.find(params[:id])
       @group[:name]=params[:name]
       @group[:description]=params[:description]
+      @group[:summary_from]=params[:summary_from][0]
       @group[:public]=params[:public]
       is_update = true
     end
